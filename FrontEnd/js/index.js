@@ -83,3 +83,10 @@ fetch("http://localhost:5678/api/works").then((res) => {
     }
     displayAll();
 });
+
+// changer login par logout si l'utilisateur est connecté
+if (localStorage.getItem("token")) {
+    document.getElementById("btnLogin").innerHTML = "logout";
+} else {
+    document.getElementById("btnLogin").innerHTML = "login";
+}
