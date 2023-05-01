@@ -90,3 +90,11 @@ if (localStorage.getItem("token")) {
 } else {
     document.getElementById("btnLogin").innerHTML = "login";
 }
+
+// fonction deconnexion
+function deconnexion() {
+    localStorage.removeItem("token");
+    window.location.href = "index.html";
+}
+// deconnexion lorsque on click sur logout
+document.getElementById("btnLogin").addEventListener("click", deconnexion);
