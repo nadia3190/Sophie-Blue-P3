@@ -11,7 +11,7 @@ const btnAll = document.getElementById("btns");
 const gallery = document.querySelector(".gallery");
 let token = localStorage.getItem("token");
 
-function informations(work) {
+function informations(work) { // fonction pour afficher les informations sur chaque projet dans le DOM 
     const card = `
       <figure id ="A${work?.id}" >
       <img src="${work?.imageUrl} "crossOrigin="anonymous">
@@ -22,6 +22,9 @@ function informations(work) {
     document.querySelector(".gallery").insertAdjacentHTML("beforeend", card);
 }
 
+
+
+//fonction displau All avec catch 
 function displayAll() {
     fetch("http://localhost:5678/api/works").then((res) => {
         if (res.ok) {
@@ -34,7 +37,10 @@ function displayAll() {
                 }
             });
         }
+    }).catch((err) => {
+        console.log(err);
     });
+
 }
 
 btnAll.addEventListener("click", displayAll);
@@ -53,30 +59,34 @@ fetch("http://localhost:5678/api/works").then((res) => {
             fetch("http://localhost:5678/api/categories").then((res) => {
                 if (res.ok) {
                     res.json().then((category) => {
-                        // Création d'un bouton pour chaque catégorie
-                        for (let count = 0; count <= category.length - 1; count++) {
-                            const newButton = document.createElement("button");
-                            newButton.type = "button"; // Ajout d'un type "button" pour chaque bouton
-                            newButton.innerHTML = category[count].name; // Ajout d'un nom pour chaque bouton (nom de la catégorie)
-                            newButton.className = "btnOpt"; // Ajout d'une classe pour chaque bouton    
-                            newButton.onclick = function() {
-                                document.querySelector(".gallery").innerHTML = "";
-                                for (let i = 0; i <= numS; i++) {
-                                    if (data[i].category.name === category[count].name) {
-                                        informations(data[i]);
+                            // Création d'un bouton pour chaque catégorie
+                            for (let count = 0; count <= category.length - 1; count++) {
+                                const newButton = document.createElement("button");
+                                newButton.type = "button"; // Ajout d'un type "button" pour chaque bouton
+                                newButton.innerHTML = category[count].name; // Ajout d'un nom pour chaque bouton (nom de la catégorie)
+                                newButton.className = "btnOpt"; // Ajout d'une classe pour chaque bouton    
+                                newButton.onclick = function() {
+                                    document.querySelector(".gallery").innerHTML = "";
+                                    for (let i = 0; i <= numS; i++) {
+                                        if (data[i].category.name === category[count].name) {
+                                            informations(data[i]);
+                                        }
                                     }
-                                }
 
-                            };
-                            // supprimer les butons si l'utilisateur est connecté
-                            if (localStorage.getItem("token")) {
-                                console.log("OK");
-                            } else {
-                                const button = document.getElementById("btn");
-                                button.appendChild(newButton);
+                                };
+                                // supprimer les buttons si l'utilisateur est connecté
+                                if (localStorage.getItem("token")) {
+                                    console.log("OK");
+                                } else {
+                                    const button = document.getElementById("btn");
+                                    button.appendChild(newButton);
+                                }
                             }
-                        }
-                    });
+                        })
+                        .catch((err) => {
+                            console.log(err);
+
+                        });
                 }
             });
         });
@@ -91,10 +101,9 @@ if (localStorage.getItem("token")) {
     document.getElementById("btnLogin").innerHTML = "login";
 }
 
-// fonction deconnexion
+// fonction deconnexion et redirection vers la page home
 function deconnexion() {
     localStorage.removeItem("token");
-    window.location.href = "index.html";
+    window.location.href = "./index.html";
 }
-// deconnexion lorsque on click sur logout
 document.getElementById("btnLogin").addEventListener("click", deconnexion);
