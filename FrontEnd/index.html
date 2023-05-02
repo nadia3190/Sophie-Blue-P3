@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="./assets/css/style.css">
     <link rel="stylesheet" href="./assets/css/modal.css">
     <script src="./js/modal.js" defer></script>
-    <script src="/FrontEnd/js/index.js" defer></script>
+    <script src="./js/index.js" defer></script>
 </head>
 
 <body>
@@ -50,7 +50,14 @@
             </article>
         </section>
         <section id="portfolio">
-            <div id="updates"><button>Modifier</button> </div>
+            <div id="updates"><button><i class="fa-solid fa-pen-to-square"></i>Modifier</button>
+                <div id="modal" class="modal">
+                    <div class="modal-content" id="modal-content">
+                        <span id="close" class="close">&times;</span>
+                    </div>
+                </div>
+
+            </div>
             <div id="portfolio_modifier">
                 <h2 id="portfolio_titre">Mes Projets</h2>
             </div>

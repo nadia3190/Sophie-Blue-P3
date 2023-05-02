@@ -1,3 +1,41 @@
-#updates {
+.modal {
+    position: fixed;
+    z-index: 1;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    right: 0px;
+    left: 0px;
+    bottom: 0px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
     display: none;
+    margin: 0 auto;
+}
+
+.modal-content {
+    background-color: white;
+    margin: 15%;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 40%;
+    height: 20%;
+    position: relative;
+    overflow: auto;
+    border-radius: 10px;
+}
+
+.close {
+    font-size: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    float: right;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+    overflow: auto;
 }
