@@ -29,4 +29,35 @@ window.onclick = function(event) {
 }
 
 
-// affichage de produits avec fetch dans la modal
+// affichage de produits avec fetch (work) dans la modal
+function displayProject(work) { // fonction pour afficher les informations sur chaque projet dans le DOM 
+    const card = `
+      <figure id ="A${work?.id}">
+      <img src="${work?.imageUrl} "crossOrigin="anonymous">
+        <figcaption>${work?.title}</figcaption>
+      </figure>
+            `;
+
+    document.getElementById("products").insertAdjacentHTML("beforeend", card);
+}
+
+
+function displayAllModal() {
+    fetch("http://localhost:5678/api/works").then((res) => {
+        if (res.ok) {
+            res.json().then((data) => {
+                console.log(data);
+                document.getElementById("products").innerHTML = ""; // Effacement de l'élément HTML avec la classe .gallery
+                // Boucle pour afficher tous les projets
+                for (let i = 0; i <= data.length - 1; i++) {
+                    displayProject(data[i]); // Appel de la fonction info pour afficher les informations sur chaque projet
+                }
+            });
+        }
+    }).catch((err) => {
+        console.error(err);
+    });
+
+}
+
+update.addEventListener("click", displayAllModal);
