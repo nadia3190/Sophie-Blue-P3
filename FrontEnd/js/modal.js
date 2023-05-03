@@ -8,13 +8,14 @@ if (localStorage.getItem("token")) {
     div.style.display = "none";
 }
 const modal = document.getElementById("modal");
-// lorsqu'on click sur modifier on affiche une modal
 const update = document.getElementById("updates");
 const close = document.getElementById("close");
-update.addEventListener("click", function() {
 
+// lorsqu'on click sur modifier on affiche une modal
+update.addEventListener("click", function() {
     modal.style.display = "block";
 });
+
 // lorsqu'on click sur le bouton close on ferme la modal
 close.addEventListener("click", function() {
     modal.style.display = "none";
@@ -26,3 +27,6 @@ window.onclick = function(event) {
         modal.style.display = "none";
     }
 }
+
+
+// affichage de produits avec fetch dans la modal

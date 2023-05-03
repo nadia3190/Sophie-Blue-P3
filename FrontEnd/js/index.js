@@ -13,7 +13,7 @@ let token = localStorage.getItem("token");
 
 function informations(work) { // fonction pour afficher les informations sur chaque projet dans le DOM 
     const card = `
-      <figure id ="A${work?.id}" >
+      <figure id ="A${work?.id}">
       <img src="${work?.imageUrl} "crossOrigin="anonymous">
         <figcaption>${work?.title}</figcaption>
       </figure>
@@ -38,7 +38,7 @@ function displayAll() {
             });
         }
     }).catch((err) => {
-        console.log(err);
+        console.error(err);
     });
 
 }
@@ -84,7 +84,7 @@ fetch("http://localhost:5678/api/works").then((res) => {
                             }
                         })
                         .catch((err) => {
-                            console.log(err);
+                            console.error(err);
 
                         });
                 }
