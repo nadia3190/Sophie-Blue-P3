@@ -34,9 +34,13 @@ function displayProject(work) { // fonction pour afficher les informations sur c
     const card = `
       <figure id ="A${work?.id}">
       <img src="${work?.imageUrl} "crossOrigin="anonymous">
-        <figcaption>${work?.title}</figcaption>
-      </figure>
-            `;
+       
+        <i id ="${work.id}" class="fa-regular fa-trash-can "></i>
+        </div>
+             <figcaption>éditer</figcaption>
+ </figure>
+       `;
+
 
     document.getElementById("products").insertAdjacentHTML("beforeend", card);
 }
