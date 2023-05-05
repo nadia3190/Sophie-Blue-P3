@@ -1,15 +1,15 @@
 // si on est connecté on affiche une div
-
-if (localStorage.getItem("token")) {
-    const div = document.getElementById("updates");
-    div.style.display = "block";
-} else {
-    const div = document.getElementById("updates");
-    div.style.display = "none";
-}
 const modal = document.getElementById("modal");
 const update = document.getElementById("updates");
 const close = document.getElementById("close");
+
+if (localStorage.getItem("token")) {
+
+    update.style.display = "block";
+} else {
+
+    update.style.display = "none";
+}
 
 // lorsqu'on click sur modifier on affiche une modal
 update.addEventListener("click", function() {
@@ -30,31 +30,31 @@ window.onclick = function(event) {
 
 
 // affichage de produits avec fetch (work) dans la modal
-function displayProject(work) { // fonction pour afficher les informations sur chaque projet dans le DOM 
-    const card = `
-      <figure id ="A${work?.id}">
-      <img src="${work?.imageUrl} "crossOrigin="anonymous">
+function displayProject(works) { // fonction pour afficher les informations sur chaque projet dans le DOM 
+    const cards = `
+      <figure id ="A${works?.id}">
+      <img src="${works?.imageUrl} "crossOrigin="anonymous">
        
-        <i id ="${work.id}" class="fa-regular fa-trash-can "></i>
+        <i id ="${works.id}" class="fa-regular fa-trash-can "></i>
         </div>
              <figcaption>éditer</figcaption>
  </figure>
        `;
 
 
-    document.getElementById("products").insertAdjacentHTML("beforeend", card);
+    document.getElementById("products").insertAdjacentHTML("beforeend", cards);
 }
 
 
 function displayAllModal() {
-    fetch("http://localhost:5678/api/works").then((res) => {
-        if (res.ok) {
-            res.json().then((data) => {
-                console.log(data);
-                document.getElementById("products").innerHTML = ""; // Effacement de l'élément HTML avec la classe .gallery
+    fetch("http://localhost:5678/api/works").then((result) => {
+        if (result.ok) {
+            result.json().then((dt) => {
+                console.log(dt);
+                document.querySelector(".galleryModal").innerHTML = ""; // Effacement de l'élément HTML avec la classe .gallery
                 // Boucle pour afficher tous les projets
-                for (let i = 0; i <= data.length - 1; i++) {
-                    displayProject(data[i]); // Appel de la fonction info pour afficher les informations sur chaque projet
+                for (let j = 0; j <= dt.length - 1; j++) {
+                    displayProject(dt[j]); // Appel de la fonction info pour afficher les informations sur chaque projet
                 }
             });
         }
