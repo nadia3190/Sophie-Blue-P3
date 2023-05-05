@@ -2,12 +2,10 @@
 const modal = document.getElementById("modal");
 const update = document.getElementById("updates");
 const close = document.getElementById("close");
-
+//quand on est connecté on affiche le bouton modifier
 if (localStorage.getItem("token")) {
-
     update.style.display = "block";
 } else {
-
     update.style.display = "none";
 }
 
@@ -15,6 +13,8 @@ if (localStorage.getItem("token")) {
 update.addEventListener("click", function() {
     modal.style.display = "block";
 });
+
+
 
 // lorsqu'on click sur le bouton close on ferme la modal
 close.addEventListener("click", function() {
