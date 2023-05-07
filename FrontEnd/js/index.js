@@ -99,10 +99,12 @@ if (localStorage.getItem("token")) {
     document.getElementById("btnLogin").innerHTML = "logout";
 } else {
     document.getElementById("btnLogin").innerHTML = "login";
+
 }
 
 // fonction deconnexion et redirection vers la page home
 function deconnexion() {
+
     localStorage.removeItem("token");
     window.location.href = "./index.html";
 }

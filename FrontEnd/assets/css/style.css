@@ -285,23 +285,3 @@ input[type="submit"] {
     border-radius: 60px;
     cursor: pointer;
 }
-
-input[type="text"] {
-    color: red;
-    border: none;
-    cursor: pointer;
-}
-
-.fa-trash {
-    display: flex;
-    justify-content: flex-end;
-    cursor: pointer;
-    position: relative;
-    z-index: 1;
-}
-
-footer nav ul {
-    display: flex;
-    justify-content: flex-end;
-    margin: 2em
-}

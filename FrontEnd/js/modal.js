@@ -2,6 +2,7 @@
 const modal = document.getElementById("modal");
 const update = document.getElementById("updates");
 const close = document.getElementById("close");
+const deleteBtn = document.getElementById("button-delete");
 //quand on est connecté on affiche le bouton modifier
 if (localStorage.getItem("token")) {
     update.style.display = "block";
@@ -38,12 +39,15 @@ function displayProject(works) { // fonction pour afficher les informations sur 
         <i id ="${works.id}" class="fa-regular fa-trash-can "></i>
         </div>
              <figcaption>éditer</figcaption>
- </figure>
+      </figure>
        `;
 
 
     document.getElementById("products").insertAdjacentHTML("beforeend", cards);
+
 }
+
+
 
 
 function displayAllModal() {
@@ -51,10 +55,10 @@ function displayAllModal() {
         if (result.ok) {
             result.json().then((dt) => {
                 console.log(dt);
-                document.querySelector(".galleryModal").innerHTML = ""; // Effacement de l'élément HTML avec la classe .gallery
+                document.querySelector(".galleryModal").innerHTML = ""; // Effacement de l'élément HTML avec la classe .galleryModall
                 // Boucle pour afficher tous les projets
                 for (let j = 0; j <= dt.length - 1; j++) {
-                    displayProject(dt[j]); // Appel de la fonction info pour afficher les informations sur chaque projet
+                    displayProject(dt[j]); // Appel de la fonction displayProject pour afficher les informations sur chaque projet
                 }
             });
         }
@@ -65,3 +69,35 @@ function displayAllModal() {
 }
 
 update.addEventListener("click", displayAllModal);
+
+
+
+
+//quand on clique sur ajouter une photo on passe au content suivant modal
+const add = document.getElementById("button-add");
+const content = document.getElementById("modal-content");
+const content2 = document.getElementById("next-modal-container");
+const close2 = document.getElementById("close2");
+
+add.addEventListener("click", function() {
+    content.style.display = "none";
+    content2.style.display = "block";
+});
+
+//quand on clique sur retour on passe au content précédent modal
+const back = document.getElementById("back");
+back.addEventListener("click", function() {
+    content.style.display = "block";
+    content2.style.display = "none";
+});
+
+//quand on clique sur fermer on ferme la modal
+close2.addEventListener("click", function() {
+    modal.style.display = "none";
+});
+
+window.addEventListener("keydown", function(e) {
+    if (e.key === "Escape" || e.key === "Esc") {
+        modal.style.display = "none";
+    }
+});

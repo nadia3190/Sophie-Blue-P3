@@ -69,8 +69,40 @@
                         </button>
 
                     </div>
-                </div>
 
+
+                </div>
+                <div class="next-modal-container" id="next-modal-container">
+                    <span id="close2" class="close">&times;</span>
+
+
+                    <div class="galleryNextModal" id="NextModal">
+                        <div> <i id="left" class="fa-sharp fa-solid fa-arrow-left"></i></div>
+                        <!--telecharger une image-->
+
+                        <form action="#" method="post" enctype="multipart/form-data" id="form">
+                            <input type="file" name="fileToUpload" id="file">
+                            <input type="text" value="Title" name="title" id="title">
+                            <!--option categories-->
+                            <label>Catégorie</label>
+                            <select name="categories" id="category">
+                                <option value="Objets">Objets</option>
+                                <option value="Appartements">Appartements</option>
+                                <option value="Hotels & restaurants">
+                                  Hotels & restaurants
+                                </option>
+
+                               
+                            </select>
+                            <input type="submit" value="Upload Image" name="submit" id="submit">
+                        </form>
+
+
+                    </div>
+
+
+
+                </div>
             </div>
 
             <div id="portfolio_modifier">
