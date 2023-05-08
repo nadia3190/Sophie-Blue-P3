@@ -101,3 +101,61 @@ window.addEventListener("keydown", function(e) {
         modal.style.display = "none";
     }
 });
+
+
+
+// Fonction pour supprimer un projet
+function deleteProject(id) {
+    fetch("http://localhost:5678/api/works/" + id, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+    }).then((result) => {
+        if (result.ok) {
+            result.json().then((dt) => {
+                console.log(dt);
+                document.getElementById("A" + id).remove();
+            });
+        }
+    }).catch((err) => {
+        console.error(err);
+    });
+}
+
+// Suppression d'un projet
+document.addEventListener("click", function(e) {
+    if (e.target.classList.contains("fa-trash-can")) {
+        deleteProject(e.target.id);
+    }
+});
+
+// Fonction pour ajouter un projet
+function addProject() {
+    const form = document.getElementById("form");
+    const formData = new FormData(form);
+    fetch("http://localhost:5678/api/works", {
+        method: "POST",
+        body: formData,
+        headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+    }).then((result) => {
+        if (result.ok) {
+            result.json().then((dt) => {
+                console.log(dt);
+                modal.style.display = "none";
+                displayAllModal();
+            });
+        }
+    }).catch((err) => {
+        console.error(err);
+    });
+}
+
+// Ajout d'un projet avec click
+document.getElementById("button-add").addEventListener("click", function(e) {
+    e.preventDefault();
+    addProject();
+});
