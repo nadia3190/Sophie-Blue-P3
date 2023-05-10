@@ -91,3 +91,29 @@
     border-radius: 10px;
     display: none;
 }
+
+label {
+    font-family: "Work Sans";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 16px;
+    color: #3d3d3d;
+}
+
+#Error {
+    width: 100%;
+    height: 34px;
+    color: red;
+    font-weight: bolder;
+    margin-top: 16px;
+    margin-bottom: -19px;
+    font-size: 16px;
+    text-align: center;
+}
+
+#image_telecharger {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+}

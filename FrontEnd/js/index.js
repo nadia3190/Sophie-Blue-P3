@@ -23,13 +23,14 @@ function informations(work) { // fonction pour afficher les informations sur cha
 }
 
 
-
+let AllProjects = [];
 //fonction displau All avec catch 
 function displayAll() {
     fetch("http://localhost:5678/api/works").then((res) => {
         if (res.ok) {
             res.json().then((data) => {
                 console.log(data);
+                AllProjects = data;
                 document.querySelector(".gallery").innerHTML = ""; // Effacement de l'élément HTML avec la classe .gallery
                 // Boucle pour afficher tous les projets
                 for (let i = 0; i <= data.length - 1; i++) {
@@ -45,6 +46,14 @@ function displayAll() {
 
 btnAll.addEventListener("click", displayAll);
 
+//cacher le boutton all si l'utilisateur est connecté
+if (localStorage.getItem("token")) {
+    btnAll.style.display = "none";
+} else {
+    btnAll.style.display = "block";
+}
+
+
 
 
 // creation des boutons//
@@ -54,6 +63,7 @@ fetch("http://localhost:5678/api/works").then((res) => {
     if (res.ok) {
         res.json().then((data) => {
             // Compter le nombre de photos
+
             const numS = data.length;
             // Récupération de la liste des catégories
             fetch("http://localhost:5678/api/categories").then((res) => {

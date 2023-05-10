@@ -14,8 +14,9 @@
     <link rel="stylesheet" href="./assets/css/style.css">
     <link rel="stylesheet" href="./assets/css/modal.css">
     <link rel="stylesheet" href="./assets/css/index.css">
+    <script src="./js/index.js" defer></script>
     <script src="./js/modal.js" defer></script>
-    <script src="/FrontEnd/js/index.js" defer></script>
+
 </head>
 
 <body>
@@ -64,7 +65,7 @@
                               Ajouter une photo
                         </button>
                         <!-- Le bouton de suppression de photo permet à l'utilisateur de supprimer une photo de la galerie -->
-                        <button id="button-delete" class="supprimer">
+                        <button id="deleteBtn" class="supprimer">
                               Supprimer La galerie
                         </button>
 
@@ -81,20 +82,30 @@
                         <!--telecharger une image-->
 
                         <form action="#" method="post" enctype="multipart/form-data" id="form">
-                            <input type="file" name="fileToUpload" id="file">
-                            <label for="title">Title</label>
-                            <input type="text" name="title" id="title">
-                            <!--option categories-->
-                            <label>Catégorie</label>
-                            <select name="categories" id="category">
+
+                            <div id="image_telecharger_images">
+                                <div id="image_telecharger"></div>
+                            </div>
+                            <div id="model_ajout_container" style="display: contents">
+                                <input type="file" name="fileToUpload" id="imageUrl" accept="image/png , image/jpg  ">
+                                <button id="adding" class="">
+                                + Ajouter photo
+                              </button>
+                                <p>jpg, png : 4mo max</p>
+                                <label for="title">Title</label>
+                                <input type="text" name="title" id="title">
+                                <!--option categories-->
+                                <label>Catégorie</label>
+                                <select name="categories" id="category">
                                 <option value="Objets">Objets</option>
                                 <option value="Appartements">Appartements</option>
                                 <option value="Hotels & restaurants">
                                   Hotels & restaurants
                                 </option>
+                                </select>
+                            </div>
+                            <div id="Error"></div>
 
-                               
-                            </select>
                             <input type="submit" value="Upload Image" name="submit" id="submit">
                         </form>
 
