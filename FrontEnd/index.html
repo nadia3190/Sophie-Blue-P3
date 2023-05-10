@@ -87,42 +87,61 @@
 
                     <div class="galleryNextModal" id="NextModal">
                         <div id="back"> <i class="fa-sharp fa-solid fa-arrow-left"></i></div>
+                        <div class="titre-modal">Ajout photo</div>
                         <!--telecharger une image-->
+                        <div class="galleryModal_ajout">
 
-                        <form action="#" method="post" enctype="multipart/form-data" id="form">
 
-                            <div id="image_telecharger_images">
-                                <div id="image_telecharger"></div>
-                            </div>
-                            <div id="model_ajout_container" style="display: contents">
-                                <input type="file" name="fileToUpload" id="imageUrl" accept="image/png , image/jpg  ">
-                                <button id="adding" class="">
-                                + Ajouter photo
-                              </button>
-                                <p>jpg, png : 4mo max</p>
-                                <label for="title">Title</label>
-                                <input type="text" name="title" id="title">
+                            <form action="#" method="post" enctype="multipart/form-data" id="form">
+
+                                <div id="image_telecharger_images">
+                                    <div id="image_telecharger"></div>
+                                </div>
+                                <div id="ajout_container" class="ajouter-photo">
+                                    <img class="photo" src="./assets/images/photo.PNG" alt="image" />
+                                    <input type="file" name="fileToUpload" id="imageUrl" class="imageUrl" accept="image/png , image/jpg  ">
+                                    <button id="adding" class="ajoutt">
+                                      + Ajouter photo
+                                    </button>
+                                    <p>jpg, png : 4mo max</p>
+                                </div>
+                                <div class="input_modal">
+
+
+                                    <label for="title">Title</label>
+                                    <input type="text" name="title" id="title">
+                                </div>
                                 <!--option categories-->
-                                <label>Catégorie</label>
-                                <select name="categories" id="category">
+                                <div class="input_modal">
+
+                                    <label>Catégorie</label>
+                                    <select name="categories" id="category">
                                 <option value="Objets">Objets</option>
                                 <option value="Appartements">Appartements</option>
                                 <option value="Hotels & restaurants">
                                   Hotels & restaurants
                                 </option>
                                 </select>
-                            </div>
-                            <div id="Error"></div>
+                                </div>
+                        </div>
+                        <div id="Error"></div>
+
+                        <div class="modal_ajout_valider">
 
                             <input type="submit" value="Valider" name="submit" id="submit">
+                        </div>
                         </form>
+
 
 
                     </div>
 
 
-
                 </div>
+
+
+
+            </div>
             </div>
 
             <div id="portfolio_modifier">
