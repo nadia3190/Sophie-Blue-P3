@@ -41,14 +41,8 @@ function displayProject(works) { // fonction pour afficher les informations sur 
              <figcaption>éditer</figcaption>
       </figure>
        `;
-
-
     document.getElementById("products").insertAdjacentHTML("beforeend", cards);
-
 }
-
-
-
 
 function displayAllModal() {
 
@@ -61,9 +55,6 @@ function displayAllModal() {
 }
 
 update.addEventListener("click", displayAllModal);
-
-
-
 
 //quand on clique sur ajouter une photo on passe au content suivant modal
 const add = document.getElementById("button-add");
@@ -93,8 +84,6 @@ window.addEventListener("keydown", function(e) {
         modal.style.display = "none";
     }
 });
-
-
 
 // Fonction pour supprimer un projet
 function deleteProject(id) {
@@ -131,10 +120,9 @@ document.addEventListener("click", function(e) {
 //suppression de tous les projets
 deleteBtn.addEventListener("click", function() {
     for (let i = 0; i < AllProjects.length; i++) {
-        deleteProject(AllProjects[i].id);
+        deleteProject(AllProjects[i].id); // supprime tous les projets dans la modal et dans la page index 
     }
 });
-
 
 
 // Ajout d'un projet
