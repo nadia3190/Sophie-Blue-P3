@@ -200,25 +200,25 @@ function telecharger() {
     const reader = new FileReader(); //créer un objet FileReader
 
     // Ajoute un écouteur d'événements pour charger l'image
-    reader.addEventListener("load", () => {
-        telecharger_image = reader.result;
+    reader.addEventListener("load", () => { //quand l'image est chargée on l'affiche dans le background de l'input
+        telecharger_image = reader.result; //recupere l'image chargée dans le reader et la stocke dans une variable 
         const photo = document.getElementById("image_telecharger");
-        document.getElementById("image_telecharger_images").style.display = null;
+        document.getElementById("image_telecharger_images").style.display = "block";
 
-        photo.style.backgroundImage = `url(${telecharger_image} )`;
-        document.getElementById("model_ajout_container").style.display = "none";
+        photo.style.backgroundImage = `url(${telecharger_image} )`; //affiche l'image dans le background de l'input
+        document.getElementById("ajout_container").style.display = "none";
     });
 
-    reader.readAsDataURL(this.files[0]);
+    reader.readAsDataURL(this.files[0]); //charge l'image dans le reader
 }
 
 // Ajoute un écouteur d'événements pour télécharger les photos
-document.getElementById("adding").addEventListener("change", telecharger);
+document.getElementById("imageUrl").addEventListener("change", telecharger);
 
 ///////////////////Envoi des fichiers a API///////////////////
 
-document.getElementById("form").addEventListener("submit", (e) => {
-    e.preventDefault();
+document.getElementById("submit").addEventListener("click", () => {
+
 
     // Récupération des éléments du formulaire
     const photo = document.getElementById("imageUrl");
@@ -254,14 +254,14 @@ document.getElementById("form").addEventListener("submit", (e) => {
                             if (image.size < 4 * 1048576) {
                                 // Création du formulaire pour l'envoi des données
                                 const formData = new FormData(); //creation d'un objet de type formdata
-                                formData.append("image", image);
-                                formData.append("title", title);
-                                formData.append("category", categorydata[i].id);
+                                formData.append("image", image); //ajout de l'image dans le formdata
+                                formData.append("title", title); //ajout du titre dans le formdata
+                                formData.append("category", categorydata[i].id); //ajout de la categorie dans le formdata
 
                                 // Envoi des données à l'API via une requête POST
-                                const setNewProject = async(data) => {
-                                    try {
-                                        const requete = await fetch(
+                                const setNewProject = async(data) => { //fonction asynchrone pour envoyer les données
+                                    try { //essaye d'envoyer les données
+                                        const requete = await fetch( //envoie les données a l'api
                                             "http://localhost:5678/api/works", {
                                                 method: "POST",
                                                 headers: {
@@ -280,7 +280,7 @@ document.getElementById("form").addEventListener("submit", (e) => {
                                             throw "Un problème est survenu.";
                                         }
                                     } catch (e) {
-                                        console.log(e);
+                                        console.error(e);
                                     }
                                 };
                                 setNewProject(formData);
@@ -290,12 +290,8 @@ document.getElementById("form").addEventListener("submit", (e) => {
                                     "La taille de la photo est supérieure à 4 Mo.";
 
                                 photo.value = null;
-                                document.getElementById(
-                                    "model_ajout_container"
-                                ).style.display = null;
-                                document.getElementById(
-                                    "image_telecharger_images"
-                                ).style.display = "none";
+                                document.getElementById("model_ajout_container").style.display = null;
+                                document.getElementById("image_telecharger_images").style.display = "none";
                             }
                             supprime();
                         }
@@ -309,7 +305,7 @@ document.getElementById("form").addEventListener("submit", (e) => {
 
 function supprime() {
     // Suppression de l'affichage des données quand on ferme la boîte de dialogue d'ajout
-    document.getElementById("model_ajout_container").style.display = null;
+    document.getElementById("ajout_container").style.display = null;
     document.getElementById("image_telecharger_images").style.display = "none";
 
     // Suppression des données de titre
