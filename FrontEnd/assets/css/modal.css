@@ -175,10 +175,7 @@ hr {
 }
 
 .imageUrl {
-    position: relative;
-    position: relative;
     bottom: -64px;
-    color: transparent;
     left: -1px;
     opacity: 0;
     height: 52px;

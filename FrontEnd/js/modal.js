@@ -132,7 +132,7 @@ const category = document.getElementById("category");
 const imageUrl = document.getElementById("imageUrl");
 const button = document.getElementById("submit");
 
-button.addEventListener("click", function(e) {
+button.addEventListener("click", function(e) { //quand on clique sur le bouton submit on envoie les données dans la base de données
     e.preventDefault();
     const data = {
         title: title.value,
@@ -150,7 +150,6 @@ button.addEventListener("click", function(e) {
         if (result.ok) {
             result.json().then((dt) => {
                 console.log(dt);
-                displayProject(dt);
                 content.style.display = "block";
                 content2.style.display = "none";
             });
@@ -162,40 +161,11 @@ button.addEventListener("click", function(e) {
 
 
 
-// fonction pour enregister une image 
-function uploadImage() {
-    const file = document.getElementById("imageUrl").files[0];
-    const formData = new FormData();
-    formData.append("file", file);
-    fetch("http://localhost:5678/api/upload", {
-        method: "POST",
-        headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-        },
-        body: formData,
-    }).then((result) => {
-        if (result.ok) {
-            result.json().then((dt) => {
-                console.log(dt);
-                imageUrl.value = dt.imageUrl;
-            });
-        }
-    }).catch((err) => {
-        console.error(err);
-    });
-}
-// addEventListener pour enregistrer une image
-document.getElementById("submit").addEventListener("change", uploadImage);
-
-
-//fonction telecharger 
-
-
 
 
 
 function telecharger() {
-    const input = document.getElementById("imageUrl"); //recupere l'input de l'image
+
     var telecharger_image = "";
     const reader = new FileReader(); //créer un objet FileReader
 
@@ -206,10 +176,11 @@ function telecharger() {
         document.getElementById("image_telecharger_images").style.display = "block";
 
         photo.style.backgroundImage = `url(${telecharger_image} )`; //affiche l'image dans le background de l'input
-        document.getElementById("ajout_container").style.display = "none";
+        document.getElementById("ajout_container").style.display = "none"; //cache le bouton ajouter une photo
     });
 
     reader.readAsDataURL(this.files[0]); //charge l'image dans le reader
+    //le reader va lire le fichier et le convertir en url 
 }
 
 // Ajoute un écouteur d'événements pour télécharger les photos
@@ -217,7 +188,8 @@ document.getElementById("imageUrl").addEventListener("change", telecharger);
 
 ///////////////////Envoi des fichiers a API///////////////////
 
-document.getElementById("submit").addEventListener("click", () => {
+document.getElementById("submit").addEventListener("click", (e) => {
+    e.preventDefault(); //annule le comportement par défaut du bouton submit
 
 
     // Récupération des éléments du formulaire
@@ -245,7 +217,7 @@ document.getElementById("submit").addEventListener("click", () => {
                             console.log(category.value);
 
                             // Récupération de l'image et du token de l'utilisateur
-                            const image = document.getElementById("imageUrl").files[0];
+                            const image = document.getElementById("imageUrl").files[0]; //
                             let token = localStorage.getItem("token");
                             console.log(`Bearer  ${token}`);
                             const title = document.getElementById("title").value;
@@ -271,7 +243,7 @@ document.getElementById("submit").addEventListener("click", () => {
                                                 body: data,
                                             }
                                         );
-                                        if (requete.status === 201) {
+                                        if (requete.status === 201) { //si la requete est ok on affiche les projets et on cache le formulaire
                                             document.getElementById("gallery").innerHTML = "";
                                             document.querySelector(".galleryModal").innerHTML = "";
                                             displayAll();
@@ -290,7 +262,7 @@ document.getElementById("submit").addEventListener("click", () => {
                                     "La taille de la photo est supérieure à 4 Mo.";
 
                                 photo.value = null;
-                                document.getElementById("model_ajout_container").style.display = null;
+                                document.getElementById("ajout_container").style.display = null; //affiche le formulaire d'ajout
                                 document.getElementById("image_telecharger_images").style.display = "none";
                             }
                             supprime();
@@ -303,7 +275,7 @@ document.getElementById("submit").addEventListener("click", () => {
 });
 
 
-function supprime() {
+function supprime() { //fonction pour supprimer les données du formulaire d'ajout
     // Suppression de l'affichage des données quand on ferme la boîte de dialogue d'ajout
     document.getElementById("ajout_container").style.display = null;
     document.getElementById("image_telecharger_images").style.display = "none";

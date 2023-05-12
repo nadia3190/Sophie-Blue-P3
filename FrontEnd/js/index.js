@@ -54,15 +54,12 @@ if (localStorage.getItem("token")) {
 }
 
 
-
-
-// creation des boutons//
-
-
 fetch("http://localhost:5678/api/works").then((res) => {
+
     if (res.ok) {
         res.json().then((data) => {
             // Compter le nombre de photos
+            AllProjects = data;
 
             const numS = data.length;
             // Récupération de la liste des catégories
@@ -70,7 +67,8 @@ fetch("http://localhost:5678/api/works").then((res) => {
                 if (res.ok) {
                     res.json().then((category) => {
                             // Création d'un bouton pour chaque catégorie
-                            for (let count = 0; count <= category.length - 1; count++) {
+                            for (let count = 0; count <= category.length - 1; count++) { // Boucle pour afficher toutes les catégories
+                                //length - 1 pour ne pas afficher la catégorie "all"
                                 const newButton = document.createElement("button");
                                 newButton.type = "button"; // Ajout d'un type "button" pour chaque bouton
                                 newButton.innerHTML = category[count].name; // Ajout d'un nom pour chaque bouton (nom de la catégorie)
@@ -101,7 +99,7 @@ fetch("http://localhost:5678/api/works").then((res) => {
             });
         });
     }
-    displayAll();
+    displayAll(); // afficher tous les projets au chargement de la page 
 });
 
 // changer login par logout si l'utilisateur est connecté
