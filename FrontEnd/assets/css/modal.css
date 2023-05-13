@@ -207,6 +207,7 @@ hr {
     height: 150px;
     margin-bottom: 50px;
     border-radius: 3px;
+    z-index: 1;
 }
 
 #adding {
@@ -215,11 +216,7 @@ hr {
     border-radius: 50px;
     background-color: #CBD6DC;
     border: none;
-    /*centrer le bouton*/
-    position: absolute;
-    left: 50%;
-    top: 25%;
-    transform: translate(-50%, -50%);
+    z-index: 0;
 }
 
 .ajoutt {

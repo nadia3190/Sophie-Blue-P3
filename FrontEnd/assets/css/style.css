@@ -219,6 +219,12 @@ li:hover {
 
 #introduction p {
     margin-bottom: 0.5em;
+    margin-bottom: 0.7em;
+    font-family: "Work Sans";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
 }
 
 #portfolio h2 {

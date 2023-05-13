@@ -327,9 +327,7 @@ if (localStorage.getItem("token")) {
     const edition = document.createElement("p"); //création d'un paragraphe 
     edition.type = "button"; //ajout d'un type bouton
 
-    // La fonction modifier
     const modification = `
-  
      <div>
         <i class="fa-regular fa-pen-to-square"></i>
         <p>Mode édition</p>  
@@ -337,14 +335,15 @@ if (localStorage.getItem("token")) {
   `;
     edition.insertAdjacentHTML("afterbegin", modification); //ajout du bouton modifier dans la page 
     edition.className = "edition"; //ajout de la classe edition
-
+    const container = document.getElementById("container");
+    container.appendChild(edition);
 
 
     const changment = document.createElement("button");
     changment.type = "button";
 
     const modification_changment = `
-<p>publier les changements</p>  `;
+     <p>publier les changements</p>  `;
     changment.insertAdjacentHTML("beforeend", modification_changment);
     changment.className = "publier";
 
