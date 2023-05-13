@@ -1,4 +1,4 @@
-// si on est connecté on affiche une div
+// si on est connecté on affiche une div 
 const modal = document.getElementById("modal");
 const update = document.getElementById("updates");
 const close = document.getElementById("close");
@@ -41,7 +41,7 @@ function displayProject(works) { // fonction pour afficher les informations sur 
              <figcaption>éditer</figcaption>
       </figure>
        `;
-    document.getElementById("products").insertAdjacentHTML("beforeend", cards);
+    document.getElementById("products").insertAdjacentHTML("beforeend", cards); //insertion de la variable cards dans le html avant la fin de la balise
 }
 
 function displayAllModal() {
@@ -79,7 +79,7 @@ close2.addEventListener("click", function() {
     modal.style.display = "none";
 });
 
-window.addEventListener("keydown", function(e) {
+window.addEventListener("keydown", function(e) { //quand on appuie sur la touche escape on ferme la modal
     if (e.key === "Escape" || e.key === "Esc") {
         modal.style.display = "none";
     }
@@ -95,10 +95,10 @@ function deleteProject(id) {
             },
         })
         .then((result) => {
-            if (result.status === 204) {
+            if (result.status === 204) { //si le status est 204 on supprime le projet
 
                 console.log(result);
-                AllProjects = AllProjects.filter(element => element.id != id);
+                AllProjects = AllProjects.filter(element => element.id != id); //filter les projets qui ont un id différent de celui qu'on veut supprimer
                 console.log(AllProjects);
                 document.getElementById("M" + id).remove(); //supprime le projet dans la modal
                 document.getElementById("A" + id).remove(); //supprime le projet dans la page index
@@ -112,8 +112,9 @@ function deleteProject(id) {
 
 // Suppression d'un projet
 document.addEventListener("click", function(e) {
-    if (e.target.classList.contains("fa-trash-can")) {
-        deleteProject(e.target.id);
+    if (e.target.classList.contains("fa-trash-can")) { //si on clique sur l'icone trash on supprime le projet
+        deleteProject(e.target.id); //supprime le projet dans la modal et dans la page index
+        // le e.target.id permet de récupérer l'id du projet sur lequel on a cliqué
     }
 });
 
@@ -121,6 +122,7 @@ document.addEventListener("click", function(e) {
 deleteBtn.addEventListener("click", function() {
     for (let i = 0; i < AllProjects.length; i++) {
         deleteProject(AllProjects[i].id); // supprime tous les projets dans la modal et dans la page index 
+        // le AllProjects[i].id permet de récupérer l'id de chaque projet
     }
 });
 
@@ -145,7 +147,7 @@ button.addEventListener("click", function(e) { //quand on clique sur le bouton s
             "Content-Type": "application/json",
             Authorization: "Bearer " + localStorage.getItem("token"),
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(data), //transforme les données en JSON 
     }).then((result) => {
         if (result.ok) {
             result.json().then((dt) => {
@@ -160,14 +162,11 @@ button.addEventListener("click", function(e) { //quand on clique sur le bouton s
 });
 
 
-
-
-
-
 function telecharger() {
 
     var telecharger_image = "";
     const reader = new FileReader(); //créer un objet FileReader
+    //fileReader permet de lire le contenu d'un fichier sous forme de flux de caractères 
 
     // Ajoute un écouteur d'événements pour charger l'image
     reader.addEventListener("load", () => { //quand l'image est chargée on l'affiche dans le background de l'input
@@ -210,14 +209,14 @@ document.getElementById("submit").addEventListener("click", (e) => {
             if (res.ok) {
                 res.json().then((categorydata) => {
                     // Parcours de la liste des catégories pour récupérer l'id correspondant à la catégorie sélectionnée
-                    for (let i = 0; i <= categorydata.length - 1; i++) {
-                        if (category.value === categorydata[i].name) {
-                            categorydata[i].name = categorydata[i].id;
+                    for (let i = 0; i <= categorydata.length - 1; i++) { //parcours la liste des catégories 
+                        if (category.value === categorydata[i].name) { //si la valeur de la catégorie est égale à la valeur de la catégorie dans la liste
+                            categorydata[i].name = categorydata[i].id; //on récupère l'id de la catégorie
                             console.log(categorydata[i].id);
                             console.log(category.value);
 
                             // Récupération de l'image et du token de l'utilisateur
-                            const image = document.getElementById("imageUrl").files[0]; //
+                            const image = document.getElementById("imageUrl").files[0];
                             let token = localStorage.getItem("token");
                             console.log(`Bearer  ${token}`);
                             const title = document.getElementById("title").value;
@@ -265,7 +264,7 @@ document.getElementById("submit").addEventListener("click", (e) => {
                                 document.getElementById("ajout_container").style.display = null; //affiche le formulaire d'ajout
                                 document.getElementById("image_telecharger_images").style.display = "none";
                             }
-                            supprime();
+                            supprime(); //supprime les données du formulaire d'ajout quand on ferme la boite de dialogue 
                         }
                     }
                 });
@@ -291,4 +290,68 @@ function supprime() { //fonction pour supprimer les données du formulaire d'ajo
     // Suppression des données de catégorie
     const category = document.getElementById("category");
     category.value = null;
+}
+
+
+//creation d'une div lorsqu'on est connecté
+if (localStorage.getItem("token")) {
+
+
+    const modifier = `
+  
+  <div id= "modifier">
+    <i class="fa-regular fa-pen-to-square"></i>
+    <p>modifier</p>
+  </div>`;
+    // Création d'un modèle de boîte de dialogue pour la modification
+    const updates = `
+  
+        <a href ="#modal"></a>
+        <i class="fa-regular fa-pen-to-square"></i>
+        <p>modifier</p> 
+   `;
+    // Ajout du bouton "modifier" dans la page
+    document.getElementById("updates").insertAdjacentHTML("afterbegin", updates);
+
+    document.getElementById("intro").insertAdjacentHTML("afterbegin", modifier);
+    document.getElementById("introduction_photo").insertAdjacentHTML("beforeend", modifier);
+
+    // Affichage de la boîte de dialogue pour la modification
+    displayAllModal(); //affiche la boite de dialogue pour modifier les projets 
+
+}
+if (localStorage.getItem("token")) {
+    document.getElementById("modify").style.backgroundColor = "black";
+
+    //edition
+    const edition = document.createElement("p"); //création d'un paragraphe 
+    edition.type = "button"; //ajout d'un type bouton
+
+    // La fonction modifier
+    const modification = `
+  
+     <div>
+        <i class="fa-regular fa-pen-to-square"></i>
+        <p>Mode édition</p>  
+    </div>
+  `;
+    edition.insertAdjacentHTML("afterbegin", modification); //ajout du bouton modifier dans la page 
+    edition.className = "edition"; //ajout de la classe edition
+
+
+
+    const changment = document.createElement("button");
+    changment.type = "button";
+
+    const modification_changment = `
+<p>publier les changements</p>  `;
+    changment.insertAdjacentHTML("beforeend", modification_changment);
+    changment.className = "publier";
+
+    changment.onclick = function() {};
+    const changements = document.getElementById("modify");
+    changements.appendChild(changment);
+
+
+
 }

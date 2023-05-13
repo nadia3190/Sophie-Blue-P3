@@ -1,12 +1,3 @@
-// coder la condition d'affichage du login/logout et les boutons modifier selon ton localStorage => dans une fonction 
-
-//coder un fetch pour recuperer la liste des categories et les afficher dans le dom avant le bloc des projet 
-
-// un fetch pour recuperer la liste des travaux la div gallery => fetch work => afficher les figure dans le dom avec la suppression de cequi est statique depuis le html file
-
-// coder la fonction de deconnexion : supprimer le localstorage et reappeler la page home
-
-
 const btnAll = document.getElementById("btns");
 const gallery = document.querySelector(".gallery");
 let token = localStorage.getItem("token");

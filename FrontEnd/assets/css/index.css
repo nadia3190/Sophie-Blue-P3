@@ -1,3 +1,73 @@
+#modify {
+    width: 70%;
+    height: 50px;
+    margin: 0 auto;
+    padding: 0px;
+    position: fixed;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 26px;
+    color: white;
+}
+
+#modify .edition div {
+    color: white;
+}
+
+.edition div {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    column-gap: 14px;
+    color: white;
+}
+
+.edition,
+.publier {
+    font-family: "Work Sans";
+    font-style: normal;
+    cursor: pointer;
+}
+
+.edition {
+    color: white;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    background-color: black;
+    display: flex;
+    flex-direction: row;
+    position: fixed;
+    top: 0px;
+    right: 700px;
+}
+
+.publier {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    text-align: center;
+    background-color: white;
+    color: black;
+    padding: 13px 25px;
+    border-radius: 60px;
+    border: 1px black;
+}
+
+#flexTitre {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#portfolio_titre,
+#updates {
+    display: flex;
+    flex-direction: column;
+}
+
 #btn {
     display: flex;
     flex-direction: row;

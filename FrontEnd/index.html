@@ -20,6 +20,7 @@
 </head>
 
 <body>
+    <div id="modify"></div>
     <header>
         <h1>Sophie Bluel <span>Architecte d'inteérieur</span></h1>
         <nav>
@@ -35,13 +36,13 @@
     </header>
     <main>
         <section id="introduction">
-            <figure>
+            <figure id="introduction_photo">
                 <img src="./assets/images/sophie-bluel.png" alt="" id="previewImage">
 
 
-            </figure>
-            <article>
 
+            </figure>
+            <article id="intro">
 
 
                 <h2>Designer d'espace</h2>
@@ -52,98 +53,103 @@
             </article>
         </section>
         <section id="portfolio">
-            <button id="updates"><i class="fa-solid fa-pen-to-square"></i>Modifier
-            </button>
-            <div id="modal" class="modal">
-                <div class="modal-content" id="modal-content">
-                    <span id="close" class="close">&times;</span>
-                    <div class="BodyModal">
-                        <div class="titre-modal">Galerie photo</div>
-                        <div id="products" class="galleryModal"></div>
 
-                        <div>
-                            <hr>
-                        </div>
-
-                        <div class="btn-add-delete">
-                            <!-- Le bouton d'ajout de photo permet à l'utilisateur d'ajouter une photo à la galerie -->
-                            <button id="button-add" class="add">
-                              Ajouter une photo
-                        </button>
-                            <!-- Le bouton de suppression de photo permet à l'utilisateur de supprimer une photo de la galerie -->
-                            <button id="deleteBtn" class="supprimer">
-                              Supprimer La galerie
-                        </button>
-
-                        </div>
-                    </div>
-
+            <div id="portfolio_modifier">
+                <div id="flexTitre">
+                    <h2 id="portfolio_titre">Mes Projets</h2>
+                    <button id="updates"></button>
 
 
                 </div>
-                <div class="next-modal-container" id="next-modal-container">
-                    <span id="close2" class="close">&times;</span>
+
+                <div id="modal" class="modal">
+                    <div class="modal-content" id="modal-content">
+                        <span id="close" class="close">&times;</span>
+                        <div class="BodyModal">
+                            <div class="titre-modal">Galerie photo</div>
+                            <div id="products" class="galleryModal"></div>
+
+                            <div>
+                                <hr>
+                            </div>
+
+                            <div class="btn-add-delete">
+                                <!-- Le bouton d'ajout de photo permet à l'utilisateur d'ajouter une photo à la galerie -->
+                                <button id="button-add" class="add">
+                              Ajouter une photo
+                        </button>
+                                <!-- Le bouton de suppression de photo permet à l'utilisateur de supprimer une photo de la galerie -->
+                                <button id="deleteBtn" class="supprimer">
+                              Supprimer La galerie
+                        </button>
+
+                            </div>
+                        </div>
 
 
-                    <div class="galleryNextModal" id="NextModal">
-                        <div id="back"> <i class="fa-sharp fa-solid fa-arrow-left"></i></div>
-                        <div class="titre-modal">Ajout photo</div>
-                        <!--telecharger une image-->
-                        <div class="galleryModal_ajout">
+
+                    </div>
+                    <div class="next-modal-container" id="next-modal-container">
+                        <span id="close2" class="close">&times;</span>
 
 
-                            <form action="#" method="post" enctype="multipart/form-data" id="form">
-
-                                <div id="image_telecharger_images">
-                                    <div id="image_telecharger"></div>
-                                </div>
-                                <div id="ajout_container" class="ajouter-photo">
-                                    <img class="photo" src="./assets/images/photo.PNG" alt="image" />
-                                    <input type="file" name="fileToUpload" id="imageUrl" class="imageUrl" accept="image/png , image/jpg  ">
-                                    <input type="button" value="+ Ajouter photo" id="adding" class="ajoutt">
-                                    <p>jpg, png : 4mo max</p>
-                                </div>
-                                <div class="input_modal">
+                        <div class="galleryNextModal" id="NextModal">
+                            <div id="back"> <i class="fa-sharp fa-solid fa-arrow-left"></i></div>
+                            <div class="titre-modal">Ajout photo</div>
+                            <!--telecharger une image-->
+                            <div class="galleryModal_ajout">
 
 
-                                    <label for="title">Title</label>
-                                    <input type="text" name="title" id="title">
-                                </div>
-                                <!--option categories-->
-                                <div class="input_modal">
+                                <form action="#" method="post" enctype="multipart/form-data" id="form">
 
-                                    <label>Catégorie</label>
-                                    <select name="categories" id="category">
+                                    <div id="image_telecharger_images">
+                                        <div id="image_telecharger"></div>
+                                    </div>
+                                    <div id="ajout_container" class="ajouter-photo">
+                                        <img class="photo" src="./assets/images/photo.PNG" alt="image" />
+                                        <input type="file" name="fileToUpload" id="imageUrl" class="imageUrl" accept="image/png , image/jpg  ">
+                                        <input type="button" value="+ Ajouter photo" id="adding" class="ajoutt">
+                                        <p>jpg, png : 4mo max</p>
+                                    </div>
+                                    <div class="input_modal">
+
+
+                                        <label for="title">Title</label>
+                                        <input type="text" name="title" id="title">
+                                    </div>
+                                    <!--option categories-->
+                                    <div class="input_modal">
+
+                                        <label>Catégorie</label>
+                                        <select name="categories" id="category">
                                 <option value="Objets">Objets</option>
                                 <option value="Appartements">Appartements</option>
                                 <option value="Hotels & restaurants">
                                   Hotels & restaurants
                                 </option>
                                 </select>
-                                </div>
+                                    </div>
+                            </div>
+                            <div id="Error"></div>
+
+                            <div class="modal_ajout_valider">
+
+                                <input type="submit" value="Valider" name="submit" id="submit">
+                            </div>
+                            </form>
+
+
+
                         </div>
-                        <div id="Error"></div>
-
-                        <div class="modal_ajout_valider">
-
-                            <input type="submit" value="Valider" name="submit" id="submit">
-                        </div>
-                        </form>
-
 
 
                     </div>
 
 
+
                 </div>
-
-
-
-            </div>
             </div>
 
-            <div id="portfolio_modifier">
-                <h2 id="portfolio_titre">Mes Projets</h2>
             </div>
             <div id="btn">
                 <button id="btns" class="tous">Tous</button>
