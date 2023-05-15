@@ -110,7 +110,7 @@
                                     <div id="ajout_container" class="ajouter-photo">
                                         <img class="photo" src="./assets/images/photo.PNG" alt="image" />
                                         <input type="file" name="fileToUpload" id="imageUrl" class="imageUrl" accept="image/png , image/jpg  ">
-                                        <input type="button" value="+ Ajouter photo" id="adding" class="ajoutt">
+                                        <input type="button" value="+ Ajouter photo" id="adding" class="ajoutt" onclick="document.getElementById('imageUrl').click()">
                                         <p>jpg, png : 4mo max</p>
                                     </div>
                                     <div class="input_modal">
@@ -154,7 +154,7 @@
 
             </div>
             <div id="btn">
-                <button id="btns" class="tous">Tous</button>
+
             </div>
             <div class="gallery" id="gallery"></div>
         </section>

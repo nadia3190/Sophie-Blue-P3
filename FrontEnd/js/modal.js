@@ -37,6 +37,7 @@ function displayProject(works) { // fonction pour afficher les informations sur 
       <img src="${works?.imageUrl} "crossOrigin="anonymous">
        
         <i id ="${works.id}" class="fa-regular fa-trash-can "></i>
+       
         </div>
              <figcaption>éditer</figcaption>
       </figure>
@@ -123,6 +124,7 @@ deleteBtn.addEventListener("click", function() {
     for (let i = 0; i < AllProjects.length; i++) {
         deleteProject(AllProjects[i].id); // supprime tous les projets dans la modal et dans la page index 
         // le AllProjects[i].id permet de récupérer l'id de chaque projet
+
     }
 });
 
@@ -145,7 +147,8 @@ button.addEventListener("click", function(e) { //quand on clique sur le bouton s
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            Authorization: "Bearer " + localStorage.getItem("token"),
+            Authorization: "Bearer " + localStorage.getItem("token"), //récupère le token dans le local storage 
+            //Bearer est un type de jeton d'accès OAuth 2.0 qui est utilisé pour effectuer des demandes HTTP authentifiées vers un serveur web
         },
         body: JSON.stringify(data), //transforme les données en JSON 
     }).then((result) => {
@@ -209,30 +212,35 @@ document.getElementById("submit").addEventListener("click", (e) => {
             if (res.ok) {
                 res.json().then((categorydata) => {
                     // Parcours de la liste des catégories pour récupérer l'id correspondant à la catégorie sélectionnée
-                    for (let i = 0; i <= categorydata.length - 1; i++) { //parcours la liste des catégories 
+                    for (let i = 0; i <= categorydata.length - 1; i++) {
+
                         if (category.value === categorydata[i].name) { //si la valeur de la catégorie est égale à la valeur de la catégorie dans la liste
-                            categorydata[i].name = categorydata[i].id; //on récupère l'id de la catégorie
+                            categorydata[i].name = categorydata[i].id; //on récupère l'id de la catégorie correspondante 
                             console.log(categorydata[i].id);
                             console.log(category.value);
 
                             // Récupération de l'image et du token de l'utilisateur
                             const image = document.getElementById("imageUrl").files[0];
                             let token = localStorage.getItem("token");
-                            console.log(`Bearer  ${token}`);
+                            console.log(`Bearer  ${token}`); //
                             const title = document.getElementById("title").value;
 
                             // Vérification de la taille de l'image
                             if (image.size < 4 * 1048576) {
                                 // Création du formulaire pour l'envoi des données
                                 const formData = new FormData(); //creation d'un objet de type formdata
+                                //FormData permet de créer un ensemble de paires clé/valeur représentant les champs d'un formulaire et leurs valeurs.
                                 formData.append("image", image); //ajout de l'image dans le formdata
                                 formData.append("title", title); //ajout du titre dans le formdata
                                 formData.append("category", categorydata[i].id); //ajout de la categorie dans le formdata
 
                                 // Envoi des données à l'API via une requête POST
+                                //async permet de définir une fonction asynchrone 
+                                //await permet d'attendre la résolution d'une promesse 
                                 const setNewProject = async(data) => { //fonction asynchrone pour envoyer les données
                                     try { //essaye d'envoyer les données
                                         const requete = await fetch( //envoie les données a l'api
+
                                             "http://localhost:5678/api/works", {
                                                 method: "POST",
                                                 headers: {
@@ -242,11 +250,13 @@ document.getElementById("submit").addEventListener("click", (e) => {
                                                 body: data,
                                             }
                                         );
-                                        if (requete.status === 201) { //si la requete est ok on affiche les projets et on cache le formulaire
+                                        if (requete.status === 201) {
+                                            //si la requete est ok on affiche les projets et on cache le formulaire d'ajout
                                             document.getElementById("gallery").innerHTML = "";
                                             document.querySelector(".galleryModal").innerHTML = "";
-                                            displayAll();
                                             displayAllModal();
+
+
                                         } else {
                                             throw "Un problème est survenu.";
                                         }
@@ -318,39 +328,5 @@ if (localStorage.getItem("token")) {
 
     // Affichage de la boîte de dialogue pour la modification
     displayAllModal(); //affiche la boite de dialogue pour modifier les projets 
-
-}
-if (localStorage.getItem("token")) {
-    document.getElementById("modify").style.backgroundColor = "black";
-
-    //edition
-    const edition = document.createElement("p"); //création d'un paragraphe 
-    edition.type = "button"; //ajout d'un type bouton
-
-    const modification = `
-     <div>
-        <i class="fa-regular fa-pen-to-square"></i>
-        <p>Mode édition</p>  
-    </div>
-  `;
-    edition.insertAdjacentHTML("afterbegin", modification); //ajout du bouton modifier dans la page 
-    edition.className = "edition"; //ajout de la classe edition
-    const container = document.getElementById("container");
-    container.appendChild(edition);
-
-
-    const changment = document.createElement("button");
-    changment.type = "button";
-
-    const modification_changment = `
-     <p>publier les changements</p>  `;
-    changment.insertAdjacentHTML("beforeend", modification_changment);
-    changment.className = "publier";
-
-    changment.onclick = function() {};
-    const changements = document.getElementById("modify");
-    changements.appendChild(changment);
-
-
 
 }

@@ -179,7 +179,7 @@ hr {
 .imageUrl {
     bottom: -64px;
     left: -1px;
-    opacity: 0;
+    display: none;
     height: 52px;
     width: 231px;
     cursor: pointer;
