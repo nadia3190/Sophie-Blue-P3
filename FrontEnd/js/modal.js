@@ -220,7 +220,7 @@ document.getElementById("submit").addEventListener("click", (e) => {
                             console.log(category.value);
 
                             // Récupération de l'image et du token de l'utilisateur
-                            const image = document.getElementById("imageUrl").files[0];
+                            const image = document.getElementById("imageUrl").files[0]; //recupere l'image 
                             let token = localStorage.getItem("token");
                             console.log(`Bearer  ${token}`); //
                             const title = document.getElementById("title").value;
@@ -325,8 +325,6 @@ if (localStorage.getItem("token")) {
 
     document.getElementById("intro").insertAdjacentHTML("afterbegin", modifier);
     document.getElementById("introduction_photo").insertAdjacentHTML("beforeend", modifier);
-
-    // Affichage de la boîte de dialogue pour la modification
-    displayAllModal(); //affiche la boite de dialogue pour modifier les projets 
+    displayAllModal();
 
 }
