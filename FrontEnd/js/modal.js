@@ -24,7 +24,7 @@ close.addEventListener("click", function() {
 
 // Quand l'utilisateur clique en dehors du modal, ferme le modal
 window.onclick = function(event) {
-    if (event.target == modal) {
+    if (event.target == modal) { // si l'evenement est le modal on ferme le modal
         modal.style.display = "none";
     }
 }
@@ -45,7 +45,8 @@ function displayProject(works) { // fonction pour afficher les informations sur 
     document.getElementById("products").insertAdjacentHTML("beforeend", cards); //insertion de la variable cards dans le html avant la fin de la balise
 }
 
-function displayAllModal() {
+function displayAllModal(e) {
+    e.preventDefault(); //empêche le comportement par défaut du formulaire
 
     document.querySelector(".galleryModal").innerHTML = ""; // Effacement de l'élément HTML avec la classe .galleryModall
     // Boucle pour afficher tous les projets
@@ -80,12 +81,6 @@ close2.addEventListener("click", function() {
     modal.style.display = "none";
 });
 
-window.addEventListener("keydown", function(e) { //quand on appuie sur la touche escape on ferme la modal
-    if (e.key === "Escape" || e.key === "Esc") {
-        modal.style.display = "none";
-    }
-});
-
 // Fonction pour supprimer un projet
 function deleteProject(id) {
     fetch("http://localhost:5678/api/works/" + id, {
@@ -103,6 +98,7 @@ function deleteProject(id) {
                 console.log(AllProjects);
                 document.getElementById("M" + id).remove(); //supprime le projet dans la modal
                 document.getElementById("A" + id).remove(); //supprime le projet dans la page index
+
             }
         })
         .catch((err) => {
@@ -129,7 +125,6 @@ deleteBtn.addEventListener("click", function() {
 });
 
 
-// Ajout d'un projet
 const form = document.getElementById("form");
 const title = document.getElementById("title");
 const category = document.getElementById("category");
@@ -138,59 +133,56 @@ const button = document.getElementById("submit");
 
 button.addEventListener("click", function(e) { //quand on clique sur le bouton submit on envoie les données dans la base de données
     e.preventDefault();
-    const data = {
+    const data = { //on récupère les données du formulaire
         title: title.value,
         category: category.value,
         imageUrl: imageUrl.value,
     };
-    fetch("http://localhost:5678/api/works", {
+    fetch("http://localhost:5678/api/works", { //on envoie les données dans la base de données
         method: "POST",
         headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + localStorage.getItem("token"), //récupère le token dans le local storage 
-            //Bearer est un type de jeton d'accès OAuth 2.0 qui est utilisé pour effectuer des demandes HTTP authentifiées vers un serveur web
+            "Content-Type": "application/json", //on précise le type de données 
+            Authorization: "Bearer " + localStorage.getItem("token"),
         },
-        body: JSON.stringify(data), //transforme les données en JSON 
-    }).then((result) => {
-        if (result.ok) {
-            result.json().then((dt) => {
+        body: JSON.stringify(data), //on convertit les données en JSON
+    }).then((result) => { //on récupère les données du formulaire
+        if (result.ok) { //si le status est ok on affiche les données dans la console
+            result.json().then((dt) => { //on récupère les données du formulaire
                 console.log(dt);
-                content.style.display = "block";
-                content2.style.display = "none";
             });
         }
-    }).catch((err) => {
+    }).catch((err) => { //si le status est différent de ok on affiche l'erreur dans la console
         console.error(err);
     });
 });
 
 
 function telecharger() {
-
     var telecharger_image = "";
-    const reader = new FileReader(); //créer un objet FileReader
-    //fileReader permet de lire le contenu d'un fichier sous forme de flux de caractères 
+    const reader = new FileReader(); //permet de lire le contenu d'un fichier sous forme de flux de données 
 
-    // Ajoute un écouteur d'événements pour charger l'image
-    reader.addEventListener("load", () => { //quand l'image est chargée on l'affiche dans le background de l'input
-        telecharger_image = reader.result; //recupere l'image chargée dans le reader et la stocke dans une variable 
+    reader.addEventListener("load", () => { //permet de lire le contenu d'un fichier sous forme de flux de données
+        telecharger_image = reader.result;
         const photo = document.getElementById("image_telecharger");
         document.getElementById("image_telecharger_images").style.display = "block";
 
-        photo.style.backgroundImage = `url(${telecharger_image} )`; //affiche l'image dans le background de l'input
-        document.getElementById("ajout_container").style.display = "none"; //cache le bouton ajouter une photo
+        photo.style.backgroundImage = `url(${telecharger_image})`;
+        document.getElementById("ajout_container").style.display = "none";
     });
 
-    reader.readAsDataURL(this.files[0]); //charge l'image dans le reader
-    //le reader va lire le fichier et le convertir en url 
+    reader.readAsDataURL(this.files[0]);
+    //readAsDataURL permet de lire le contenu d'un fichier sous forme de flux de données 
+
 }
 
-// Ajoute un écouteur d'événements pour télécharger les photos
 document.getElementById("imageUrl").addEventListener("change", telecharger);
+document.getElementById('adding').addEventListener('click', function() {
+    document.getElementById('imageUrl').click();
+});
 
 ///////////////////Envoi des fichiers a API///////////////////
 
-document.getElementById("submit").addEventListener("click", (e) => {
+button.addEventListener("click", (e) => {
     e.preventDefault(); //annule le comportement par défaut du bouton submit
 
 
@@ -207,13 +199,14 @@ document.getElementById("submit").addEventListener("click", (e) => {
         document.getElementById("Error").innerHTML = "";
 
         // Récupération des catégories depuis l'API
-        fetch("http://localhost:5678/api/categories").then((res) => {
+        fetch("http://localhost:5678/api/categories").then((res) => { //on récupère les catégories depuis l'API
             console.log(res);
             if (res.ok) {
-                res.json().then((categorydata) => {
+                res.json().then((categorydata) => { //.json() permet de récupérer les données en JSON 
+                    //.then() permet de récupérer les données de la promesse 
                     // Parcours de la liste des catégories pour récupérer l'id correspondant à la catégorie sélectionnée
                     for (let i = 0; i <= categorydata.length - 1; i++) {
-
+                        //length-1 car on commence à 0 et pas à 1 
                         if (category.value === categorydata[i].name) { //si la valeur de la catégorie est égale à la valeur de la catégorie dans la liste
                             categorydata[i].name = categorydata[i].id; //on récupère l'id de la catégorie correspondante 
                             console.log(categorydata[i].id);
@@ -222,11 +215,11 @@ document.getElementById("submit").addEventListener("click", (e) => {
                             // Récupération de l'image et du token de l'utilisateur
                             const image = document.getElementById("imageUrl").files[0]; //recupere l'image 
                             let token = localStorage.getItem("token");
-                            console.log(`Bearer  ${token}`); //
+                            console.log(`Bearer  ${token}`); // Bearer permet d'authentifier l'utilisateur 
                             const title = document.getElementById("title").value;
 
                             // Vérification de la taille de l'image
-                            if (image.size < 4 * 1048576) {
+                            if (image.size < 4 * 1048576) { // 1048576 = 1Mo 
                                 // Création du formulaire pour l'envoi des données
                                 const formData = new FormData(); //creation d'un objet de type formdata
                                 //FormData permet de créer un ensemble de paires clé/valeur représentant les champs d'un formulaire et leurs valeurs.
@@ -237,23 +230,23 @@ document.getElementById("submit").addEventListener("click", (e) => {
                                 // Envoi des données à l'API via une requête POST
                                 //async permet de définir une fonction asynchrone 
                                 //await permet d'attendre la résolution d'une promesse 
-                                const setNewProject = async(data) => { //fonction asynchrone pour envoyer les données
+                                const setNewProject = async(data) => { //fonction asynchrone pour envoyer les données a l'API       
+                                    //fonction asynchnrone permet d'attendre la résolution d'une promesse 
                                     try { //essaye d'envoyer les données
                                         const requete = await fetch( //envoie les données a l'api
 
                                             "http://localhost:5678/api/works", {
                                                 method: "POST",
                                                 headers: {
-                                                    Authorization: `Bearer ${token}`,
-                                                    accept: "application/json",
+                                                    Authorization: `Bearer ${token}`, //envoie le token de l'utilisateur
+                                                    accept: "application/json", //accepte le format json
                                                 },
                                                 body: data,
                                             }
                                         );
                                         if (requete.status === 201) {
-                                            //si la requete est ok on affiche les projets et on cache le formulaire d'ajout
-                                            document.getElementById("gallery").innerHTML = "";
-                                            document.querySelector(".galleryModal").innerHTML = "";
+                                            document.getElementById("gallery").innerHTML = ""; //on vide la div gallery
+                                            document.querySelector(".galleryModal").innerHTML = ""; //on vide la div galleryModal
                                             displayAllModal();
 
 
@@ -264,7 +257,8 @@ document.getElementById("submit").addEventListener("click", (e) => {
                                         console.error(e);
                                     }
                                 };
-                                setNewProject(formData);
+                                setNewProject(formData); //appel de la fonction pour envoyer les données 
+                                // parametre formData pour envoyer les données du formulaire 
                             } else {
                                 // Affichage d'un message d'erreur si la taille de l'image est trop grande
                                 document.getElementById("Error").innerHTML =
@@ -325,6 +319,5 @@ if (localStorage.getItem("token")) {
 
     document.getElementById("intro").insertAdjacentHTML("afterbegin", modifier);
     document.getElementById("introduction_photo").insertAdjacentHTML("beforeend", modifier);
-    displayAllModal();
 
 }

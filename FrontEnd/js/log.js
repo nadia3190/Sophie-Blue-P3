@@ -3,7 +3,7 @@ const emailInput = document.getElementById('email');
 const passwordInput = document.getElementById('password');
 const errorDiv = document.getElementById('error');
 
-form.addEventListener('submit', (event) => {
+form.addEventListener('submit', (event) => { //event listener sur le formulaire de connexion
     event.preventDefault(); // Prevent default form submission
 
     const email = emailInput.value;

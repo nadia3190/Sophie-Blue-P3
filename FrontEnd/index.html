@@ -60,8 +60,6 @@
                 <div id="flexTitre">
                     <h2 id="portfolio_titre">Mes Projets</h2>
                     <button id="updates"></button>
-
-
                 </div>
 
                 <div id="modal" class="modal">
@@ -110,7 +108,7 @@
                                     <div id="ajout_container" class="ajouter-photo">
                                         <img class="photo" src="./assets/images/photo.PNG" alt="image" />
                                         <input type="file" name="fileToUpload" id="imageUrl" class="imageUrl" accept="image/png , image/jpg  ">
-                                        <input type="button" value="+ Ajouter photo" id="adding" class="ajoutt" onclick="document.getElementById('imageUrl').click()">
+                                        <input type="button" value="+ Ajouter photo" id="adding" class="ajoutt">
                                         <p>jpg, png : 4mo max</p>
                                     </div>
                                     <div class="input_modal">
@@ -124,12 +122,12 @@
 
                                         <label>Catégorie</label>
                                         <select name="categories" id="category">
-                                <option value="Objets">Objets</option>
-                                <option value="Appartements">Appartements</option>
-                                <option value="Hotels & restaurants">
-                                  Hotels & restaurants
-                                </option>
-                                </select>
+                                            <option value="Objets">Objets</option>
+                                            <option value="Appartements">Appartements</option>
+                                            <option value="Hotels & restaurants">
+                                            Hotels & restaurants
+                                            </option>
+                                       </select>
                                     </div>
                             </div>
                             <div id="Error"></div>

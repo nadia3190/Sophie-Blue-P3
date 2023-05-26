@@ -1,15 +1,14 @@
-const btnAll = document.getElementById("btns");
 const gallery = document.querySelector(".gallery");
 let token = localStorage.getItem("token");
 
+
 function informations(work) { // fonction pour afficher les informations sur chaque projet dans le DOM 
     const card = `
-      <figure id ="A${work?.id}">
-      <img src="${work?.imageUrl} "crossOrigin="anonymous">
-        <figcaption>${work?.title}</figcaption>
-      </figure>
-            `;
-
+    <figure id ="A${work?.id}">
+      <img src="${work?.imageUrl}" crossOrigin="anonymous">
+      <figcaption>${work?.title}</figcaption>
+    </figure>
+  `;
     document.querySelector(".gallery").insertAdjacentHTML("beforeend", card);
 }
 
@@ -20,7 +19,8 @@ let allCategories = [{
     "name": "Tous"
 }]; //tableau de catégories avec un élément "Tous" pour afficher tous les projets
 //fonction display All avec catch 
-function displayAll() { // fonction pour afficher tous les projets dans le DOM
+function displayAll() // fonction pour afficher tous les projets dans le DOM
+{
     fetch("http://localhost:5678/api/works").then((res) => { //récupération de tous les projets
         if (res.ok) {
             res.json().then((data) => {
@@ -44,20 +44,19 @@ function displayProjects(tableauProjects) { // fonction pour afficher tous les p
 }
 
 
-
 // Récupération de la liste des catégories
 fetch("http://localhost:5678/api/categories")
     .then((res) => { // fonction pour afficher les catégories dans le DOM
         if (res.ok)
-            return res.json();
-    }).then((categories) => {
+            return res.json(); //récupération de toutes les catégories 
+    }).then((categories) => { // fonction pour afficher les catégories dans le DOM
         // Création d'un bouton pour chaque catégorie
-        categories.forEach(element => {
-            allCategories.push(element);
+        categories.forEach(element => { //ajouter les categories dans le tableau allCategories
+            allCategories.push(element); //ajouter les categories dans le tableau allCategories
         });
         //cacher le boutton all si l'utilisateur est connecté
         if (!localStorage.getItem("token")) {
-            displayFilter();
+            displayFilter(); // appel de la fonction displayFilter pour afficher les boutons de filtre dans le DOM
         }
 
     })
@@ -77,8 +76,10 @@ function displayFilter() { // fonction pour afficher les boutons de filtre dans 
         newButton.innerHTML = element.name; // Ajout d'un nom pour chaque bouton (nom de la catégorie)
         newButton.className = "btnOpt"; // Ajout d'une classe pour chaque bouton    
         newButton.setAttribute("id", element.id); // Ajout d'un id pour chaque bouton (id de la catégorie)
+        //set attribute pour ajouter un attribut a un element html 
         newButton.onclick = function() { // Ajout d'un événement au clic sur chaque bouton
             filterProject(element.id); // Appel de la fonction filterProject pour afficher les projets de la catégorie sélectionnée
+            //element.id est l'id de la categorie selectionnée
         };
         btn.appendChild(newButton); // Ajout du bouton dans l'élément HTML avec l'id btn
     });
@@ -89,8 +90,10 @@ function filterProject(idCategory) {
     //si idCategory egal a -1 afficher tous les projets
     //sinon afficher les projets de la categorie selectionnée
     else {
-        const newTable = AllProjects.filter(element => element.categoryId == idCategory); //filtrer les projets de la categorie selectionnée
-        displayProjects(newTable);
+        const newTable = AllProjects.filter(element => element.categoryId == idCategory);
+        //filtrer les projets de la categorie selectionnée
+        //element.categoryId est l'id de la categorie du projet 
+        displayProjects(newTable); //afficher les projets de la categorie selectionnée
     }
 }
 // changer login par logout si l'utilisateur est connecté
@@ -132,10 +135,11 @@ if (localStorage.getItem("token")) {
 
 }
 
-// fonction deconnexion et redirection vers la page home
+// fonction deconnexion 
 function deconnexion() {
 
+
     localStorage.removeItem("token");
-    window.location.href = "./index.html";
+
 }
 document.getElementById("btnLogin").addEventListener("click", deconnexion);
