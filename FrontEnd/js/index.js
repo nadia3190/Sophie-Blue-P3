@@ -2,7 +2,7 @@ const gallery = document.querySelector(".gallery");
 let token = localStorage.getItem("token");
 
 
-function informations(work) { // fonction pour afficher les informations sur chaque projet dans le DOM 
+function informations(work) { // fonction pour afficher les informations sur chaque projet 
     const card = `
     <figure id ="A${work?.id}">
       <img src="${work?.imageUrl}" crossOrigin="anonymous">

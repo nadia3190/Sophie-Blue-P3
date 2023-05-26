@@ -251,7 +251,7 @@ button.addEventListener("click", (e) => {
 
 
                                         } else {
-                                            throw "Un problème est survenu.";
+                                            throw "Un problème est survenu";
                                         }
                                     } catch (e) {
                                         console.error(e);
